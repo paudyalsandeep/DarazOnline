@@ -6,12 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.darazonline.adapter.ProductsAdapter;
 import com.example.darazonline.model.Products;
@@ -26,18 +28,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
-
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
+    public List<Products> productsList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,17 +38,24 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView=view.findViewById(R.id.recyclerView);
 
-        List<Products>productsList=new ArrayList<>();
-        productsList.add(new Products("Ram","500",R.drawable.ram));
-        productsList.add(new Products("Speaker","200",R.drawable.ram));
-        productsList.add(new Products("Monitor","1000",R.drawable.ram));
+        ProductsAdapter productsAdapter=new ProductsAdapter(getContext(),productsList);
 
-        ProductsAdapter adapter=new ProductsAdapter(getContext(),productsList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
+        recyclerView.setAdapter(productsAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        productsList=new ArrayList<>();
+        productsList.add(new Products("Ram","5000",R.drawable.ram));
+        productsList.add(new Products("Speaker","2000",R.drawable.ram));
+        productsList.add(new Products("Monitor","1500",R.drawable.ram));
+
+
     }
 }

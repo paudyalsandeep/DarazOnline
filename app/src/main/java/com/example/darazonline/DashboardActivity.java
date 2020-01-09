@@ -14,12 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
-    public static List<Products> st = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
 
