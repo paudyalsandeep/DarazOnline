@@ -27,6 +27,7 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
 
+    View view;
     private RecyclerView recyclerView;
     public List<Products> productsList;
     @Override
@@ -35,27 +36,17 @@ public class HomeFragment extends Fragment {
 
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerView=view.findViewById(R.id.recyclerView);
-
-        ProductsAdapter productsAdapter=new ProductsAdapter(getContext(),productsList);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        recyclerView.setAdapter(productsAdapter);
-
-        return view;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
         productsList=new ArrayList<>();
         productsList.add(new Products("Ram","5000",R.drawable.ram));
-        productsList.add(new Products("Speaker","2000",R.drawable.ram));
-        productsList.add(new Products("Monitor","1500",R.drawable.ram));
 
+        recyclerView=view.findViewById(R.id.recyclerView);
 
+        ProductsAdapter productsAdapter=new ProductsAdapter(getContext(),productsList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(productsAdapter);
+
+        return view;
     }
 }
