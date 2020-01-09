@@ -7,9 +7,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import com.example.darazonline.model.Products;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DashboardActivity extends AppCompatActivity {
+    public static List<Products> st = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
