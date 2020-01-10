@@ -15,11 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.darazonline.URL.Url;
 import com.example.darazonline.adapter.ProductsAdapter;
+import com.example.darazonline.api.Api;
 import com.example.darazonline.model.Products;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -37,19 +43,29 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        productsList=new ArrayList<>();
-        productsList.add(new Products("Ram","5000",R.drawable.ram));
-        productsList.add(new Products("Speaker","5000",R.drawable.ram));
-        productsList.add(new Products("Speaker","5000",R.drawable.ram));
-        productsList.add(new Products("Speaker","5000",R.drawable.ram));
-
-        recyclerView=view.findViewById(R.id.recyclerView);
-
-        ProductsAdapter productsAdapter=new ProductsAdapter(getContext(),productsList);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
-        recyclerView.setAdapter(productsAdapter);
-
+        getProduct();
         return view;
+    }
+
+    public void getProduct() {
+        Api retrofitProductAPI = Url.getRetrofit().create(Api.class);
+        Call<List<Products>> ProductsCall = retrofitProductAPI.getAllproucts();
+        ProductsCall.enqueue(new Callback<List<Products>>() {
+            @Override
+            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+                System.out.println("Product list " + response.body());
+                ProductsAdapter recyclerviewAdapter = new ProductsAdapter(getContext(), response.body());
+                RecyclerView.LayoutManager mlayoutManager = new GridLayoutManager(getContext(), 3);
+                recyclerView.setLayoutManager(mlayoutManager);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(recyclerviewAdapter);
+                recyclerviewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Products>> call, Throwable t) {
+
+            }
+        });
     }
 }
