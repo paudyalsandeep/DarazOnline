@@ -40,11 +40,14 @@ public class HomeFragment extends Fragment {
 
         productsList=new ArrayList<>();
         productsList.add(new Products("Ram","5000",R.drawable.ram));
+        productsList.add(new Products("Speaker","5000",R.drawable.ram));
+        productsList.add(new Products("Speaker","5000",R.drawable.ram));
+        productsList.add(new Products("Speaker","5000",R.drawable.ram));
 
         recyclerView=view.findViewById(R.id.recyclerView);
 
         ProductsAdapter productsAdapter=new ProductsAdapter(getContext(),productsList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         recyclerView.setAdapter(productsAdapter);
 
         return view;

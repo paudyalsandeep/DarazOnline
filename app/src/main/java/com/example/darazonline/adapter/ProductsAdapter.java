@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.darazonline.HomeFragment;
 import com.example.darazonline.R;
 import com.example.darazonline.model.Products;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         Products products=productsList.get(position);
         holder.tvProductName.setText(products.getName());
         holder.tvPrice.setText(products.getPrice());
-        holder.productImage.setImageResource(products.getImageId());
+        Picasso.get()
+                .load("http://www.piyushp.com.np/sport_fanatic/api/member/image/daraz_image/product/"+products.getImageId())
+                .placeholder(R.drawable.ic_launcher_background)
+                .resize(220, 220)
+                .centerCrop()
+                .into(holder.productImage);
+      //  holder.productImage.setImageResource(products.getImageId());
     }
 
     @Override
@@ -58,6 +65,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             super(itemView);
 
             productImage=itemView.findViewById(R.id.productImage);
+
             tvProductName=itemView.findViewById(R.id.tvProductName);
             tvPrice=itemView.findViewById(R.id.tvPrice);
 
